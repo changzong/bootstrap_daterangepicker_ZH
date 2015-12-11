@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html dir="ltr" lang="en-US">
+	<head>
+		<meta charset="UTF-8" />
+		<title>A date range picker for Bootstrap</title>
+		<link href="bootstrap/css/bootstrap.min.css" rel="stylesheet">
+		<link rel="stylesheet" type="text/css" media="all" href="daterangepicker.css" />
+		<script type="text/javascript" src="jquery.min.js"></script>
+		<script type="text/javascript" src="bootstrap/js/bootstrap.min.js"></script>
+		<script type="text/javascript" src="moment.js"></script>
+		<script type="text/javascript" src="daterangepicker.js"></script>
+	</head>
+	<body>
+
+<div class="demo">
+<input size="35" type="text" name="daterange" value="" >
+<i class="glyphicon glyphicon-calendar fa fa-calendar"></i>
+</div>
+
+<style type="text/css">
+	.demo { position: relative; }
+	.demo i {
+		position: relative; right: 25px; top: auto; cursor: pointer;
+	}
+</style>
+
+
+<script type="text/javascript">
+function date_selection(mode, single) {
+	var datevalue;
+	if (mode == "Date") {
+		initial_time = "2015/01/01 - 2015/01/01";
+		time_picker = false;
+		time_picker_24_hour = false;
+		output_format = 'YYYY-MM-DD';
+		diplay_format = 'YYYY/MM/DD';
+	}
+	else if (mode == "DateTime") {
+		initial_time = "2015/01/01 00:00 - 2015/01/01 01:00";
+		time_picker = true;
+		time_picker_24_hour = true;
+		output_format = 'YYYY-MM-DD H:mm';
+		diplay_format = 'YYYY/MM/DD H:mm';
+	}
+	$(function() {
+		$('input[name="daterange"]').val(initial_time)
+		$('input[name="daterange"]').daterangepicker({
+			singleDatePicker: single,
+			timePicker: time_picker,
+			timePicker24Hour: time_picker_24_hour,
+			locale: {
+			    format: diplay_format
+			}
+		}, function(start, end, label) { 
+			datevalue = {"start": start.format(output_format), "end": end.format(output_format)}
+			console.log(datevalue); 
+			return datevalue;
+		});
+	});
+}
+
+date_selection("DateTime", false);
+
+</script>
+	</body>
